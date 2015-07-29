@@ -232,7 +232,7 @@ else
 	# Now the client keys. We need to set KEY_CN or the stupid pkitool will cry
 	export KEY_CN="$CLIENT"
 	export EASY_RSA="${EASY_RSA:-.}"
-	"$EASY_RSA/pkitool" $CLIENT
+	"$EASY_RSA/pkitool" --pass $CLIENT
 	# DH params
 	. /etc/openvpn/easy-rsa/2.0/build-dh
 	# Let's configure the server
