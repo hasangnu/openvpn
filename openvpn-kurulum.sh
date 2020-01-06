@@ -112,7 +112,7 @@ if [[ -e /etc/openvpn/server/server.conf ]]; then
 			number_of_clients=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c "^V")
 			if [[ "$number_of_clients" = 0 ]]; then
 				echo
-				echo "You have no existing clients!"
+				echo "Mevcut istemciniz yok!"
 				exit
 			fi
 			echo
@@ -139,7 +139,6 @@ if [[ -e /etc/openvpn/server/server.conf ]]; then
 				rm -f pki/issued/"$client".crt
 				rm -f /etc/openvpn/server/crl.pem
 				cp /etc/openvpn/server/easy-rsa/pki/crl.pem /etc/openvpn/server/crl.pem
-				# CRL is read with each client connection, when OpenVPN is dropped to nobody
 				chown nobody:"$group_name" /etc/openvpn/server/crl.pem
 				echo
 				echo "$client istemcisi iptal edildi!"
@@ -151,10 +150,10 @@ if [[ -e /etc/openvpn/server/server.conf ]]; then
 			;;
 			3) 
 			echo
-			read -p "OpenVPN servisini iptal etmek istiyor musunuz? [y/N]: " remove
+			read -p "OpenVPN servisini kaldırmak istiyor musunuz? [y/N]: " remove
 			until [[ "$remove" =~ ^[yYnN]*$ ]]; do
 				echo "$remove: geçersiz seçim."
-				read -p "OpenVPN servisini iptal etmek istiyor musunuz? [y/N]: " remove
+				read -p "OpenVPN servisini kaldırmak istiyor musunuz? [y/N]: " remove
 			done
 			if [[ "$remove" =~ ^[yY]$ ]]; then
 				port=$(grep '^port ' /etc/openvpn/server/server.conf | cut -d " " -f 2)
